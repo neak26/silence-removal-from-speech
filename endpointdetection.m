@@ -12,7 +12,7 @@ close all
 info = audioinfo('speechFile.wav');
 display(info);
 
-averagedSound = mean(y,2); %get the average of 4 channels 
+averagedSound = mean(y,2); %get the average of channels 
 N = length(averagedSound);
 
 
@@ -20,8 +20,8 @@ N = length(averagedSound);
 % first 9600 samples of the given utterance. 200ms of the speech
 % (200/1000)*Fs
 
-mu = mean(averagedSound(1:9600));
-sigma = std(averagedSound(1:9600));
+mu = mean(averagedSound(1:((200/1000)*Fs)));
+sigma = std(averagedSound(1:((200/1000)*Fs)));
 
 % step 2: check whether Mahalanobis distance is >3 or not
 s=1;
@@ -32,11 +32,11 @@ copySpeech=averagedSound;
 for i=1:N
     if( (abs(averagedSound(i)-mu)/sigma)>3) %0.75 for Andre
         speech(s)=averagedSound(i);
-        copySpeech(i)=0; % step 3: Mark the voiced sample as 1 and unvoiced sample as 0.
+        copySpeech(i)=1; % step 3: Mark the voiced sample as 1 and unvoiced sample as 0.
         s=s+1;
     else
         nonspeech(ns)=averagedSound(i);
-        copySpeech(i)=1;
+        copySpeech(i)=0;
         ns=ns+1;
     end
 end
