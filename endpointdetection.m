@@ -30,7 +30,7 @@ speech=zeros(N,1);
 nonspeech=zeros(N,1);
 copySpeech=averagedSound;
 for i=1:N
-    if( (abs(averagedSound(i)-mu)/sigma)>3) %0.75 for Andre
+    if( (abs(averagedSound(i)-mu)/sigma)>3) %
         speech(s)=averagedSound(i);
         copySpeech(i)=1; % step 3: Mark the voiced sample as 1 and unvoiced sample as 0.
         s=s+1;
